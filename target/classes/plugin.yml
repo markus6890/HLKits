@@ -1,0 +1,8 @@
+main: com.gmail.markushygedombrowski.HLKits
+name: HLKits
+version: 1.0
+softdepend: [Vault,WorldGuard,WorldEdit,CrateReloaded]
+commands:
+  hlgetkit:
+    description: "Create kits"
+    aliases: ["hlcreatekit", "hlkittimereset"]
