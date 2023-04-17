@@ -140,6 +140,8 @@ public class KitsGUI implements Listener {
 
     @EventHandler
     public void onInventoryClickEvent(InventoryClickEvent event) {
+
+
         Player p = (Player) event.getWhoClicked();
         Inventory inventory = event.getClickedInventory();
         ItemStack clickeditem = event.getCurrentItem();
@@ -151,8 +153,9 @@ public class KitsGUI implements Listener {
         if (clickeditem == null) {
             return;
         }
-        if (inventory.getTitle().equalsIgnoreCase(region + "-Kits")) {
-
+        if (inventory.getTitle().contains("-Kits")) {
+            event.setResult(Event.Result.DENY);
+            event.setCancelled(true);
             switch (clickedSlot) {
                 case RANDOM_INDEX:
                     kit = kitRegion + "Random";
@@ -196,9 +199,9 @@ public class KitsGUI implements Listener {
                     break;
 
             }
-            event.setCancelled(true);
-            event.setResult(Event.Result.DENY);
+
             if(kit == null) {
+
                 return;
             }
             if(!p.hasPermission(name)) {
@@ -213,16 +216,16 @@ public class KitsGUI implements Listener {
             }
             if(Cooldown.isCooling(p.getName(),kit)) {
                 int remaining = (int) Cooldown.getRemaining(p.getName(),kit);
-                p.sendMessage("§7Du kan først tage det kit §a" + kit + "§7 om §b" + remaining + "§7 " + UtilTime.getTimestamp());
+                p.sendMessage("§8[§6§lKits§8]§7Du kan først tage det kit §a" + kit + "§7 om §b" + remaining + "§7 " + UtilTime.getTimestamp());
                 return;
             } else {
-                p.sendMessage("§7Du har taget kit §a " + kit);
+                p.sendMessage("§8[§6§lKits§8]§7Du har taget kit §a " + kit);
                 Cooldown.add(p.getName(),kit,time, System.currentTimeMillis());
                 KitsUtils.addItems(p, kits.getItems());
+
                 plugin.econ.depositPlayer(p, kits.getMoney());
                 p.closeInventory();
             }
-
             event.setCancelled(true);
             event.setResult(Event.Result.DENY);
 

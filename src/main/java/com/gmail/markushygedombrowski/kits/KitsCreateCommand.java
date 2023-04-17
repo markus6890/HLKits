@@ -39,9 +39,9 @@ public class KitsCreateCommand implements CommandExecutor {
             return true;
         }
         if(args.length == 0) {
-            p.sendMessage("/hlcreatekit <kit> <money>");
-            p.sendMessage("/hlgetkit <kit>");
-            p.sendMessage("/hlkittimereset <kit> <player>");
+            p.sendMessage("§8[§6§lKits§8]§7 /hlcreatekit <kit> <money>");
+            p.sendMessage("§8[§6§lKits§8]§7 /hlgetkit <kit>");
+            p.sendMessage("§8[§6§lKits§8]§7 /hlkittimereset <kit> <player>");
             return true;
         }
         String kit = args[0];
@@ -55,7 +55,7 @@ public class KitsCreateCommand implements CommandExecutor {
             if(!KitsUtils.isNumeric(money,p)) return true;
 
             createKit(p,kit,Integer.parseInt(money),info);
-            p.sendMessage("§a" + kit + "§7 has benn §acreated");
+            p.sendMessage("§8[§6§lKits§8]§a " + kit + "§7 has benn §acreated");
             return true;
         }
         if(alias.equalsIgnoreCase("hlkittimereset")) {
@@ -64,7 +64,7 @@ public class KitsCreateCommand implements CommandExecutor {
             return true;
         }
         if (info == null) {
-            sender.sendMessage("§cThat kit doesn't exist");
+            sender.sendMessage("§8[§6§lKits§8] §cThat kit doesn't exist");
             return true;
         }
 
@@ -74,7 +74,7 @@ public class KitsCreateCommand implements CommandExecutor {
     }
     public void createKit(Player p, String kit,int money, KitsInfo info) {
         if (info != null) {
-            p.sendMessage("§cThat kit already exist!");
+            p.sendMessage("§8[§6§lKits§8] §cThat kit already exist!");
             return;
         }
         List<ItemStack> saveitems = new ArrayList<>();
@@ -93,7 +93,7 @@ public class KitsCreateCommand implements CommandExecutor {
             return;
 
         }
-        p.sendMessage("§aCooldown §7er blevet fjernet fra §a" + name + "§7 for §a" + kit);
+        p.sendMessage("§8[§6§lKits§8]§7 §aCooldown §7er blevet fjernet fra §a" + name + "§7 for §a" + kit);
 
         cooldown.removeCooldown(name,kit);
     }

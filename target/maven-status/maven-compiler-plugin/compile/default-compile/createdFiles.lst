@@ -2,9 +2,10 @@ com\gmail\markushygedombrowski\kits\KitsInfo.class
 com\gmail\markushygedombrowski\utils\kitcooldown\AbilityCooldown.class
 com\gmail\markushygedombrowski\utils\ConfigManager.class
 com\gmail\markushygedombrowski\kits\KitsCreateCommand.class
+com\gmail\markushygedombrowski\utils\perms\SetPerms.class
 com\gmail\markushygedombrowski\utils\Settings.class
+com\gmail\markushygedombrowski\utils\ConfigReloadCmd.class
 com\gmail\markushygedombrowski\utils\KitsUtils.class
-com\gmail\markushygedombrowski\utils\Configreloadcommand.class
 com\gmail\markushygedombrowski\utils\kitcooldown\Cooldown.class
 com\gmail\markushygedombrowski\utils\kitcooldown\UtilMath.class
 com\gmail\markushygedombrowski\kits\KitsGUI.class

@@ -26,6 +26,25 @@ public class KitSign implements Listener {
                         sign.getLine(1).equalsIgnoreCase("§8Klik her") &&
                         sign.getLine(2).equalsIgnoreCase("§8Køb adgang §a§l/buy") &&
                         sign.getLine(3).equalsIgnoreCase("§8===============") ) {
+                    if(p.hasPermission("vagt")) {
+                        if(p.hasPermission("vagt.a") && KitsUtils.isLocInRegion(p.getLocation(),"A")) {
+                            kitsGUI.create(p,"§aA");
+                            return;
+                        } else if (p.hasPermission("vagt.b") && KitsUtils.isLocInRegion(p.getLocation(),"B")) {
+                            kitsGUI.create(p,"§bB");
+                            return;
+                        } else if (p.hasPermission("vagt.c") && KitsUtils.isLocInRegion(p.getLocation(),"C")) {
+                            kitsGUI.create(p,"§cC");
+                            return;
+                        } else if(p.hasPermission("vagt.p") && KitsUtils.isLocInRegion(p.getLocation(),"C")) {
+                            kitsGUI.create(p,"§cC");
+                            return;
+                        } else {
+                            p.sendMessage("§8[§6§lKits§8]Du skal gå til en block dit rank er§c!");
+                            return;
+                        }
+                    }
+
                     if(KitsUtils.isLocInRegion(p.getLocation(),"A")) {
                         kitsGUI.create(p,"§aA");
                     } else if (KitsUtils.isLocInRegion(p.getLocation(),"B")) {

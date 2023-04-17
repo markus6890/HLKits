@@ -5,11 +5,12 @@ import com.gmail.markushygedombrowski.kits.KitsCreateCommand;
 import com.gmail.markushygedombrowski.kits.KitsGUI;
 import com.gmail.markushygedombrowski.kits.KitsManager;
 import com.gmail.markushygedombrowski.utils.ConfigManager;
+import com.gmail.markushygedombrowski.utils.ConfigReloadCmd;
 import com.gmail.markushygedombrowski.utils.Settings;
 import com.gmail.markushygedombrowski.utils.KitsUtils;
 import com.gmail.markushygedombrowski.utils.kitcooldown.Cooldown;
-import com.gmail.markushygedombrowski.utils.kitcooldown.UtilMath;
 import com.gmail.markushygedombrowski.utils.kitcooldown.UtilTime;
+import com.gmail.markushygedombrowski.utils.perms.SetPerms;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -27,7 +28,6 @@ public class HLKits extends JavaPlugin {
     private ConfigManager configM;
     private Cooldown cooldown;
     private UtilTime utilTime;
-    private UtilMath utilMath;
     public Economy econ = null;
 
 
@@ -39,16 +39,20 @@ public class HLKits extends JavaPlugin {
             settings.load(config);
             initKits();
 
-            utilMath = new UtilMath();
             utilTime = new UtilTime();
 
             cooldown = new Cooldown(utilTime);
+
+            SetPerms setPerms = new SetPerms();
+            Bukkit.getPluginManager().registerEvents(setPerms, this);
 
             try {
                 loadCooldowns();
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
+
+
 
             if (!setupEconomy()) {
                 getLogger().severe(String.format("[%s] - Disabled due to no Vault dependency found!", getDescription().getName()));
@@ -59,7 +63,7 @@ public class HLKits extends JavaPlugin {
 
                 @Override
                 public void run() {
-                    cooldown.handleCooldowns();
+                    Cooldown.handleCooldowns();
                 }
             }, 1L, 1L);
 

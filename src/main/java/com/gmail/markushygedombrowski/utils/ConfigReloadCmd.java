@@ -5,10 +5,10 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
-public class Configreloadcommand implements CommandExecutor {
+public class ConfigReloadCmd implements CommandExecutor {
 
     private HLKits plugin;
-    public Configreloadcommand(HLKits plugin) {
+    public ConfigReloadCmd(HLKits plugin) {
         this.plugin = plugin;
     }
 
