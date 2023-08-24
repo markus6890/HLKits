@@ -43,7 +43,6 @@ public class Cooldown {
             return;
         }
         cooldownPlayers.get(player).cooldownMap.remove(ability);
-        Player cPlayer = Bukkit.getPlayer(player);
 
     }
 
@@ -57,7 +56,7 @@ public class Cooldown {
             for (Iterator<String> iter = cooldownPlayers.get(key).cooldownMap.keySet().iterator(); iter.hasNext(); ) {
                 String name = iter.next();
                 if (getRemaining(key, name) <= 0.0) {
-                    removeCooldown(name, key);
+                    removeCooldown(key, name);
                 }
             }
         }

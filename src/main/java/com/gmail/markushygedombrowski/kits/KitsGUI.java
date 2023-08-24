@@ -34,10 +34,10 @@ public class KitsGUI implements Listener {
     private final int DEEPER_INDEX = 31;
     private final int CASINO_INDEX = 33;
     private final int LEGEND_INDEX = 35;
-    private final int YT_INDEX = 21;
-    private final int STREAMER_INDEX = 23;
+    private final int CONTENT_INDEX = 22;
     private Wool woolRed = new Wool(DyeColor.RED);
     private Wool woolGreen = new Wool(DyeColor.GREEN);
+    private Wool woolPurple = new Wool(DyeColor.PURPLE);
     private String region;
     private ItemStack random = woolRed.toItemStack(1);
     private ItemStack vip = woolRed.toItemStack(1);
@@ -49,21 +49,19 @@ public class KitsGUI implements Listener {
     private ItemStack legend = woolRed.toItemStack(1);
     private ItemStack mafia = woolRed.toItemStack(1);
     private ItemStack mafiaboss = woolRed.toItemStack(1);
+    private ItemStack content = woolRed.toItemStack(1);
     private ItemStack glass = new ItemStack(Material.STAINED_GLASS_PANE,1,(short) 1);
     private KitsManager kitsManager;
     private HLKits plugin;
     private Settings settings;
     private String kitRegion;
-    private Cooldown cooldown;
-    private UtilTime utilTime;
 
 
-    public KitsGUI(KitsManager kitsManager, HLKits plugin, Settings settings, Cooldown cooldown, UtilTime utilTime) {
+
+    public KitsGUI(KitsManager kitsManager, HLKits plugin, Settings settings ) {
         this.kitsManager = kitsManager;
         this.plugin = plugin;
         this.settings = settings;
-        this.cooldown = cooldown;
-        this.utilTime = utilTime;
     }
 
     public void create(Player p, String region) {
@@ -107,7 +105,20 @@ public class KitsGUI implements Listener {
             item.setItemMeta(itemMeta);
             meta.replace(key, item);
         });
-
+        if(p.hasPermission("content")) {
+            List<String> contentLore = new ArrayList<>();
+            ItemMeta contentMeta = content.getItemMeta();
+            if(!Cooldown.isCooling(p.getName(), kitRegion + "Content")) {
+                content = woolPurple.toItemStack(1);
+                contentLore.add(0, "§7Tag dit kit §aContent");
+            } else {
+                contentLore.add(0, "§7Du kan tage kit §aContent§7 om §b" + (int) Cooldown.getRemaining(p.getName(), kitRegion + "Content") + "§7 " + UtilTime.getTimestamp());
+            }
+            contentMeta.setDisplayName("§f§lKit Content");
+            contentMeta.setLore(contentLore);
+            content.setItemMeta(contentMeta);
+            inventory.setItem(CONTENT_INDEX, content);
+        }
 
 
         inventory.setItem(RANDOM_INDEX, meta.get("Random"));
@@ -120,6 +131,7 @@ public class KitsGUI implements Listener {
         inventory.setItem(DEEPER_INDEX, meta.get("Deeper"));
         inventory.setItem(CASINO_INDEX, meta.get("Casino"));
         inventory.setItem(LEGEND_INDEX, meta.get("Legend"));
+
 
         ItemMeta metaGlass = glass.getItemMeta();
         metaGlass.setDisplayName(" ");
@@ -196,6 +208,13 @@ public class KitsGUI implements Listener {
                 case LEGEND_INDEX:
                     kit = kitRegion + "Legend";
                     name = "Legend";
+                    break;
+                case CONTENT_INDEX:
+                    if(!p.hasPermission("content")) {
+                        return;
+                    }
+                    kit = kitRegion + "Content";
+                    name = "Content";
                     break;
 
             }

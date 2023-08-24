@@ -40,6 +40,21 @@ public class KitsManager {
         kitsMap.put(kitsInfo.getName(),kitsInfo);
 
     }
+    public void delete(String name) {
+        FileConfiguration config = configM.getKits();
+        config.set("kits." + name,null);
+        configM.saveKits();
+        kitsMap.remove(name);
+    }
+    public void replace(String name, KitsInfo kitsInfo) {
+        FileConfiguration config = configM.getKits();
+        config.set("kits." + name,null);
+        config.set("kits." + kitsInfo.getName() + ".items", kitsInfo.getItems());
+        config.set("kits." + kitsInfo.getName() + ".money", kitsInfo.getMoney());
+        configM.saveKits();
+        kitsMap.remove(name);
+        kitsMap.put(kitsInfo.getName(),kitsInfo);
+    }
     public KitsInfo getKitsInfo(String name) {
         return kitsMap.get(name);
     }

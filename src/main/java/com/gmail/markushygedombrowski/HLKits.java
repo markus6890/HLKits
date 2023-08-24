@@ -1,7 +1,7 @@
 package com.gmail.markushygedombrowski;
 
 import com.gmail.markushygedombrowski.kits.KitSign;
-import com.gmail.markushygedombrowski.kits.KitsCreateCommand;
+import com.gmail.markushygedombrowski.kits.KitsCommand;
 import com.gmail.markushygedombrowski.kits.KitsGUI;
 import com.gmail.markushygedombrowski.kits.KitsManager;
 import com.gmail.markushygedombrowski.utils.ConfigManager;
@@ -9,7 +9,6 @@ import com.gmail.markushygedombrowski.utils.ConfigReloadCmd;
 import com.gmail.markushygedombrowski.utils.Settings;
 import com.gmail.markushygedombrowski.utils.KitsUtils;
 import com.gmail.markushygedombrowski.utils.kitcooldown.Cooldown;
-import com.gmail.markushygedombrowski.utils.kitcooldown.UtilTime;
 import com.gmail.markushygedombrowski.utils.perms.SetPerms;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
@@ -26,8 +25,7 @@ public class HLKits extends JavaPlugin {
     private Settings settings;
     private KitsManager kitsManager;
     private ConfigManager configM;
-    private Cooldown cooldown;
-    private UtilTime utilTime;
+
     public Economy econ = null;
 
 
@@ -39,9 +37,6 @@ public class HLKits extends JavaPlugin {
             settings.load(config);
             initKits();
 
-            utilTime = new UtilTime();
-
-            cooldown = new Cooldown(utilTime);
 
             SetPerms setPerms = new SetPerms();
             Bukkit.getPluginManager().registerEvents(setPerms, this);
@@ -52,8 +47,8 @@ public class HLKits extends JavaPlugin {
                 throw new RuntimeException(e);
             }
 
-
-
+            ConfigReloadCmd configReloadCmd = new ConfigReloadCmd(this);
+            getCommand("hlkitreload").setExecutor(configReloadCmd);
             if (!setupEconomy()) {
                 getLogger().severe(String.format("[%s] - Disabled due to no Vault dependency found!", getDescription().getName()));
                 getServer().getPluginManager().disablePlugin(this);
@@ -82,9 +77,10 @@ public class HLKits extends JavaPlugin {
         return econ != null;
     }
     public void reload() {
+
         reloadConfig();
         FileConfiguration config = getConfig();
-        loadConfigManager();
+        configM.reloadKits();
         kitsManager.load();
         settings.load(config);
 
@@ -100,10 +96,10 @@ public class HLKits extends JavaPlugin {
     public void initKits() {
         kitsManager = new KitsManager(configM);
         kitsManager.load();
-        KitsCreateCommand kitsCreateCommand = new KitsCreateCommand(this, configM, cooldown, kitsManager);
+        KitsCommand kitsCreateCommand = new KitsCommand(kitsManager);
         getCommand("hlgetkit").setExecutor(kitsCreateCommand);
 
-        KitsGUI kitsGUI = new KitsGUI(kitsManager, this, settings, cooldown, utilTime);
+        KitsGUI kitsGUI = new KitsGUI(kitsManager, this, settings);
         Bukkit.getPluginManager().registerEvents(kitsGUI, this);
         KitSign kitSign = new KitSign(kitsGUI);
         Bukkit.getPluginManager().registerEvents(kitSign, this);
@@ -128,7 +124,7 @@ public class HLKits extends JavaPlugin {
             String kit = resultSet.getString("kit");
             time = time / 1000;
             if(!(time < 0)) {
-                cooldown.add(name, kit, time, System.currentTimeMillis());
+                Cooldown.add(name, kit, time, System.currentTimeMillis());
                 System.out.println("Loaded cooldown for " + name + " for kit " + kit + " for " + time + " seconds");
             }
             deleteFromSQL(connection, name);
@@ -145,7 +141,7 @@ public class HLKits extends JavaPlugin {
 
 
     private void saveCooldownSQL() {
-        if (cooldown.cooldownPlayers.isEmpty()) return;
+        if (Cooldown.cooldownPlayers.isEmpty()) return;
         Connection connection = null;
         PreparedStatement[] statement = new PreparedStatement[1];
         try {
@@ -165,12 +161,12 @@ public class HLKits extends JavaPlugin {
 
 
     private void loopCooldowmMap(PreparedStatement[] statement) {
-        if (cooldown.cooldownPlayers.isEmpty()) return;
-        cooldown.cooldownPlayers.forEach((key, value) -> {
+        if (Cooldown.cooldownPlayers.isEmpty()) return;
+        Cooldown.cooldownPlayers.forEach((key, value) -> {
             Player player = Bukkit.getPlayer(key);
             try {
-                for (String name : cooldown.cooldownPlayers.get(key).cooldownMap.keySet()) {
-                    long time = (cooldown.cooldownPlayers.get(key).cooldownMap.get(name).seconds + cooldown.cooldownPlayers.get(key).cooldownMap.get(name).systime) - System.currentTimeMillis();
+                for (String name : Cooldown.cooldownPlayers.get(key).cooldownMap.keySet()) {
+                    long time = (Cooldown.cooldownPlayers.get(key).cooldownMap.get(name).seconds + Cooldown.cooldownPlayers.get(key).cooldownMap.get(name).systime) - System.currentTimeMillis();
                     statement[0].setString(1, value.player);
                     statement[0].setLong(2, time);
                     statement[0].setString(3, name);
@@ -210,11 +206,11 @@ public class HLKits extends JavaPlugin {
     }
 
     public Connection getConnection() throws SQLException {
-        String host = "148.251.176.123";
+        String host = "136.243.105.54";
         int port = 3306;
-        String database = "s331_hlkits";
-        String userName = "u331_zN8R5BfVtQ";
-        String password = "TEWR8Abl1N.Ch!3REWqfTfNn";
+        String database = "s331_hlprison";
+        String userName = "u331_LqP1vudA52";
+        String password = "xSNhtPC+mHQ6Yn.KQkkPQEGT";
 
         String connectionString = String.format("jdbc:mysql://%s:%d/%s?characterEncoding=utf8", host, port, database);
 

@@ -1,7 +1,6 @@
 com\gmail\markushygedombrowski\kits\KitsInfo.class
 com\gmail\markushygedombrowski\utils\kitcooldown\AbilityCooldown.class
 com\gmail\markushygedombrowski\utils\ConfigManager.class
-com\gmail\markushygedombrowski\kits\KitsCreateCommand.class
 com\gmail\markushygedombrowski\utils\perms\SetPerms.class
 com\gmail\markushygedombrowski\utils\Settings.class
 com\gmail\markushygedombrowski\utils\ConfigReloadCmd.class
@@ -14,4 +13,5 @@ com\gmail\markushygedombrowski\kits\KitsManager.class
 com\gmail\markushygedombrowski\HLKits$1.class
 com\gmail\markushygedombrowski\utils\kitcooldown\UtilTime.class
 com\gmail\markushygedombrowski\HLKits.class
+com\gmail\markushygedombrowski\kits\KitsCommand.class
 com\gmail\markushygedombrowski\kits\KitSign.class

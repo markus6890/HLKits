@@ -10,6 +10,7 @@ public class KitsInfo {
     private int money;
     private String timestamp;
 
+
     public KitsInfo(String name, List<ItemStack> items, int money) {
         this.name = name;
         this.items = items;
@@ -22,7 +23,13 @@ public class KitsInfo {
     public List<ItemStack> getItems() {
         return items;
     }
+    public void setItems(List<ItemStack> items) {
+        this.items = items;
+    }
     public int getMoney() {
         return money;
+    }
+    public void setMoney(int money) {
+        this.money = money;
     }
 }

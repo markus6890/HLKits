@@ -5,6 +5,6 @@ softdepend: [Vault,WorldGuard,CrateReloaded]
 commands:
   hlgetkit:
     description: "Create kits"
-    aliases: ["hlcreatekit", "hlkittimereset"]
+    aliases: ["hlcreatekit", "hlkittimereset","hlsettime","hldeltekit","hlreplacekit"]
   hlkitreload:
     description: "Reload kits"

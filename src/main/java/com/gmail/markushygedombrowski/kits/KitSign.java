@@ -40,7 +40,7 @@ public class KitSign implements Listener {
                             kitsGUI.create(p,"§cC");
                             return;
                         } else {
-                            p.sendMessage("§8[§6§lKits§8]Du skal gå til en block dit rank er§c!");
+                            p.sendMessage("§8[§6§lKits§8]Du skal gå til den block dit rank er§c!");
                             return;
                         }
                     }

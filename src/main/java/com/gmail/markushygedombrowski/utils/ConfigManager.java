@@ -11,11 +11,6 @@ import java.io.IOException;
 
 public class ConfigManager {
     private HLKits plugin = HLKits.getPlugin(HLKits.class);
-
-    public FileConfiguration warpscfg;
-    public File warpsFile;
-    public FileConfiguration itemcfg;
-    public File itemFile;
     public FileConfiguration kitscfg;
     public File kitsFile;
 
