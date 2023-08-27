@@ -86,6 +86,7 @@ public class KitsGUI implements Listener {
         meta.put("Legend", legend);
         meta.put("Mafia", mafia);
         meta.put("MafiaBoss", mafiaboss);
+
         meta.forEach((key, item) -> {
             ItemMeta itemMeta = item.getItemMeta();
             lore.clear();
@@ -106,18 +107,7 @@ public class KitsGUI implements Listener {
             meta.replace(key, item);
         });
         if(p.hasPermission("content")) {
-            List<String> contentLore = new ArrayList<>();
-            ItemMeta contentMeta = content.getItemMeta();
-            if(!Cooldown.isCooling(p.getName(), kitRegion + "Content")) {
-                content = woolPurple.toItemStack(1);
-                contentLore.add(0, "§7Tag dit kit §aContent");
-            } else {
-                contentLore.add(0, "§7Du kan tage kit §aContent§7 om §b" + (int) Cooldown.getRemaining(p.getName(), kitRegion + "Content") + "§7 " + UtilTime.getTimestamp());
-            }
-            contentMeta.setDisplayName("§f§lKit Content");
-            contentMeta.setLore(contentLore);
-            content.setItemMeta(contentMeta);
-            inventory.setItem(CONTENT_INDEX, content);
+            setContentKit(p, inventory);
         }
 
 
@@ -139,8 +129,11 @@ public class KitsGUI implements Listener {
         lore.add(1,"§7Skriv i Hjælp kanalen");
         metaGlass.setLore(lore);
         glass.setItemMeta(metaGlass);
+
+
+
         for(int x = 0; x < inventory.getSize(); x++) {
-            if((inventory.getItem(x) == null)) {
+            if(inventory.getItem(x) == null) {
                 inventory.setItem(x,glass);
             }
         }
@@ -148,6 +141,21 @@ public class KitsGUI implements Listener {
 
         p.openInventory(inventory);
 
+    }
+
+    private void setContentKit(Player p, Inventory inventory) {
+        List<String> contentLore = new ArrayList<>();
+        ItemMeta contentMeta = content.getItemMeta();
+        if(!Cooldown.isCooling(p.getName(), kitRegion + "Content")) {
+            content = woolPurple.toItemStack(1);
+            contentLore.add(0, "§7Tag dit kit §aContent");
+        } else {
+            contentLore.add(0, "§7Du kan tage kit §aContent§7 om §b" + (int) Cooldown.getRemaining(p.getName(), kitRegion + "Content") + "§7 " + UtilTime.getTimestamp());
+        }
+        contentMeta.setDisplayName("§f§lKit Content");
+        contentMeta.setLore(contentLore);
+        content.setItemMeta(contentMeta);
+        inventory.setItem(CONTENT_INDEX, content);
     }
 
     @EventHandler

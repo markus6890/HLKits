@@ -55,6 +55,13 @@ public class KitsManager {
         kitsMap.remove(name);
         kitsMap.put(kitsInfo.getName(),kitsInfo);
     }
+    public String getList() {
+        String[] list = {""};
+        kitsMap.forEach((k,v) -> {
+            list[0] += k + ", ";
+        });
+        return list[0];
+    }
     public KitsInfo getKitsInfo(String name) {
         return kitsMap.get(name);
     }
