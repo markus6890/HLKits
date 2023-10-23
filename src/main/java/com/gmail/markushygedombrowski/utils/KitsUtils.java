@@ -1,6 +1,7 @@
 package com.gmail.markushygedombrowski.utils;
 
 
+import com.github.schottky.zener.util.RandomChanceCollection;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import com.sk89q.worldguard.protection.ApplicableRegionSet;
 import com.sk89q.worldguard.protection.managers.RegionManager;
@@ -84,6 +85,7 @@ public class KitsUtils {
         Random r = new Random();
         double num = r.nextInt(100);
         return num < pro;
+
 
     }
 

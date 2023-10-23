@@ -1,1 +1,6 @@
 normalkitTime: 1
+sql:
+  database: "local"
+  host: "localhost"
+  user: "root"
+  password: "password"

@@ -6,7 +6,7 @@ import com.gmail.markushygedombrowski.kits.KitsGUI;
 import com.gmail.markushygedombrowski.kits.KitsManager;
 import com.gmail.markushygedombrowski.utils.ConfigManager;
 import com.gmail.markushygedombrowski.utils.ConfigReloadCmd;
-import com.gmail.markushygedombrowski.utils.Settings;
+import com.gmail.markushygedombrowski.utils.KitSettings;
 import com.gmail.markushygedombrowski.utils.KitsUtils;
 import com.gmail.markushygedombrowski.utils.kitcooldown.Cooldown;
 import com.gmail.markushygedombrowski.utils.perms.SetPerms;
@@ -22,7 +22,7 @@ import java.sql.*;
 public class HLKits extends JavaPlugin {
 
 
-    private Settings settings;
+    private KitSettings settings;
     private KitsManager kitsManager;
     private ConfigManager configM;
 
@@ -32,7 +32,7 @@ public class HLKits extends JavaPlugin {
         public void onEnable() {
             loadConfigManager();
             FileConfiguration config = getConfig();
-            settings = new Settings();
+            settings = new KitSettings();
             KitsUtils utils = new KitsUtils();
             settings.load(config);
             initKits();
@@ -206,11 +206,11 @@ public class HLKits extends JavaPlugin {
     }
 
     public Connection getConnection() throws SQLException {
-        String host = "136.243.105.54";
-        int port = 3306;
-        String database = "s331_hlprison";
-        String userName = "u331_LqP1vudA52";
-        String password = "xSNhtPC+mHQ6Yn.KQkkPQEGT";
+        String host = settings.getHost();
+        int port = settings.getPort();
+        String database = settings.getDatabase();
+        String userName = settings.getUser();
+        String password = settings.getPassword();
 
         String connectionString = String.format("jdbc:mysql://%s:%d/%s?characterEncoding=utf8", host, port, database);
 

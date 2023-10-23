@@ -1,7 +1,7 @@
 package com.gmail.markushygedombrowski.kits;
 
 import com.gmail.markushygedombrowski.HLKits;
-import com.gmail.markushygedombrowski.utils.Settings;
+import com.gmail.markushygedombrowski.utils.KitSettings;
 import com.gmail.markushygedombrowski.utils.KitsUtils;
 import com.gmail.markushygedombrowski.utils.kitcooldown.Cooldown;
 import com.gmail.markushygedombrowski.utils.kitcooldown.UtilTime;
@@ -53,12 +53,12 @@ public class KitsGUI implements Listener {
     private ItemStack glass = new ItemStack(Material.STAINED_GLASS_PANE,1,(short) 1);
     private KitsManager kitsManager;
     private HLKits plugin;
-    private Settings settings;
+    private KitSettings settings;
     private String kitRegion;
 
 
 
-    public KitsGUI(KitsManager kitsManager, HLKits plugin, Settings settings ) {
+    public KitsGUI(KitsManager kitsManager, HLKits plugin, KitSettings settings ) {
         this.kitsManager = kitsManager;
         this.plugin = plugin;
         this.settings = settings;

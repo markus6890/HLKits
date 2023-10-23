@@ -45,7 +45,6 @@
 
 
     <dependencies>
-
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
@@ -87,6 +86,11 @@
             <artifactId>CrateReloadedAPI</artifactId>
             <version>2.1.0</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.Schottky-spi</groupId>
+            <artifactId>Zener</artifactId>
+            <version>v1.2.3.2-SNAPSHOT</version>
         </dependency>
     </dependencies>
 
