@@ -18,6 +18,7 @@ public class ConfigManager {
         if(!plugin.getDataFolder().exists()) {
             plugin.getDataFolder().mkdir();
 
+
         }
 
         kitsFile = new File(plugin.getDataFolder(),"kits.yml");
@@ -48,7 +49,7 @@ public class ConfigManager {
         try {
             kitscfg.save(kitsFile);
         } catch (IOException e) {
-            Bukkit.getServer().getConsoleSender().sendMessage(ChatColor.RED + "could not create kits.yml File");
+            Bukkit.getServer().getConsoleSender().sendMessage(ChatColor.DARK_PURPLE + "could not create kits.yml File");
         }
     }
 
